@@ -1,11 +1,24 @@
 {
     "name": "magusd/connect4",
+    "scripts": {
+        "tests": "vendor/bin/phpunit"
+    },
     "authors": [
         {
             "name": "Vitor Lobao",
             "email": "vitor.lobs@gmail.com"
         }
     ],
+    "autoload": {
+        "psr-4": {
+            "Connect4\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
     "require": {
         "symfony/console": "^4.0"
     },
