@@ -17,5 +17,6 @@ interface BoardInterface
     public function readBoard();
     public function addPiece(Piece $piece, $column);
     public function getStartIndex();
+    public function getEndIndex();
     public function getColumns();
 }

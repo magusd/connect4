@@ -7,10 +7,13 @@ var gulp  = require('gulp'),
 gulp.task('default', function() {
     gutil.log('Gulp is running!');
     gulp.watch(['src/**/*.php','tests/**/*.php'], ['phpunit']);
+    gulp.run('phpunit');
 });
 
 gulp.task('phpunit', function() {
     var options = {debug: false};
     gulp.src('phpunit.xml')
-        .pipe(phpunit('./vendor/bin/phpunit',options));
+        .pipe(phpunit('./vendor/bin/phpunit',options))
+        .on('error', function() {});
 });
+

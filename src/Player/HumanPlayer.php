@@ -11,7 +11,7 @@ namespace Connect4\Player;
 
 use Connect4\Board\BoardInterface;
 
-class HumanPlayer implements PlayerInterface
+class HumanPlayer extends BasePlayer implements PlayerInterface
 {
     public function play(BoardInterface $board)
     {

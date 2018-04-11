@@ -15,6 +15,7 @@ use Connect4\Board\SimpleBoard;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Formatter\OutputFormatterStyle;
 use Symfony\Component\Console\Helper\Table;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -22,12 +23,16 @@ class PlayCommand extends Command
 {
     protected $output;
     protected $input;
+    protected $board;
 
     protected function configure()
     {
         $this
             ->setName('play')
             ->setDescription('Starts a game with a dumb bot')
+            ->addOption('rows', 'r',InputArgument::OPTIONAL, 'Customize board rows',6)
+            ->addOption('columns', 'c',InputArgument::OPTIONAL, 'Customize board columns',7)
+
             ->setHelp('...');
     }
 
@@ -35,6 +40,11 @@ class PlayCommand extends Command
     {
         $this->output = $output;
         $this->input = $input;
+
+        $rows = intval($input->getOption('rows'));
+        $columns = intval($input->getOption('columns'));
+
+        $this->board = new SimpleBoard($rows,$columns);
 
         $outputStyle = new OutputFormatterStyle('red', 'white', array('bold', 'blink'));
         $output->getFormatter()->setStyle('player1', $outputStyle);
@@ -48,25 +58,23 @@ class PlayCommand extends Command
     {
         $this->setup($output,$input);
 
-        $board = new SimpleBoard(6,7);
+        while(true){
+            $output->write(sprintf("\033\143"));
+            $this->printBoard();
 
+        }
 
-        $output->write(sprintf("\033\143"));
-        $this->printBoard($board);
 
     }
 
-    public function printBoard(BoardInterface $board)
+    public function printBoard()
     {
-        $board->addPiece(new ConsolePiece('player1'),5);
-        $board->addPiece(new ConsolePiece('player1'),5);
-
-        $mesh = $board->readBoard();
+        $mesh = $this->board->readBoard();
 
 
         $table = new Table($this->output);
         $table
-            ->setHeaders(range($board->getStartIndex(),$board->getColumns()))
+            ->setHeaders(range($this->board->getStartIndex(),$this->board->getColumns()))
             ->setRows($mesh)
         ;
         $table->render();

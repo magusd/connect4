@@ -10,8 +10,11 @@ namespace Connect4\Player;
 
 
 use Connect4\Board\BoardInterface;
+use Connect4\Board\Piece\Piece;
 
 interface PlayerInterface
 {
+    public function setPiece(Piece $piece);
+    public function getPiece();
     public function play(BoardInterface $board);
 }

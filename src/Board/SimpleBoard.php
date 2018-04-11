@@ -33,6 +33,11 @@ class SimpleBoard implements BoardInterface
         return $this->startIndex;
     }
 
+    public function getEndIndex()
+    {
+        return $this->getColumns()+$this->getStartIndex()-1;
+    }
+
     public function getColumns()
     {
         return $this->columns;
