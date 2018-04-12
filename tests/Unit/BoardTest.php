@@ -68,19 +68,6 @@ class BoardTest extends BaseTest
 
     }
 
-//    public function testBoardHasAWinner()
-//    {
-//        $board = new SimpleBoard(4,1);
-////        var_dump($board->readBoard());exit;
-//        $this->assertFalse($board->getWinner());
-//        $piece = new Piece('blue');
-//        $board->addPiece($piece,1);
-//        $board->addPiece($piece,1);
-//        $board->addPiece($piece,1);
-//        $board->addPiece($piece,1);
-//        $this->assertNotFalse($board->getWinner());
-//    }
-
     public function testBoardIsNotPlayable()
     {
         $board = new SimpleBoard(1,1);
@@ -98,5 +85,48 @@ class BoardTest extends BaseTest
             }
             echo PHP_EOL;
         }
+    }
+
+    public function testBoardHasAWinnerRow()
+    {
+        $board = new SimpleBoard(1,4);
+        $this->assertFalse($board->getWinner());
+        $piece = new Piece('blue');
+        $board->addPiece($piece,1);
+        $board->addPiece($piece,2);
+        $board->addPiece($piece,3);
+        $board->addPiece($piece,4);
+        $this->assertNotFalse($board->getWinner());
+    }
+
+    public function testBoardHasAWinnerDiagonal()
+    {
+        $board = new SimpleBoard(4,4);
+        $this->assertFalse($board->getWinner());
+        $piece = new Piece('blue');
+        $board->addPiece($piece,1);
+        $board->addPiece($piece,2);
+        $board->addPiece($piece,2);
+        $board->addPiece($piece,3);
+        $board->addPiece($piece,3);
+        $board->addPiece($piece,3);
+        $board->addPiece($piece,4);
+        $board->addPiece($piece,4);
+        $board->addPiece($piece,4);
+        $board->addPiece($piece,4);
+        $this->assertNotFalse($board->getWinner());
+    }
+
+    public function testBoardHasAWinnerColumn()
+    {
+        $board = new SimpleBoard(4,1);
+        $this->assertFalse($board->getWinner());
+        $piece = new Piece('blue');
+        $board->addPiece($piece,1);
+        $board->addPiece($piece,1);
+        $board->addPiece($piece,1);
+        $board->addPiece($piece,1);
+        $this->assertNotFalse($board->getWinner());
+
     }
 }

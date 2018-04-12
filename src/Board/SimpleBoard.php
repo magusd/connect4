@@ -9,6 +9,7 @@
 namespace Connect4\Board;
 
 
+use Connect4\Board\Events\WinnerWinnerChickenDinnerEvent;
 use Connect4\Board\Exceptions\BoardColumnIsFullException;
 use Connect4\Board\Exceptions\InvalidColumnException;
 use Connect4\Board\Piece\Piece;
@@ -61,7 +62,7 @@ class SimpleBoard implements BoardInterface
 
     public function addPiece(Piece $piece,$column)
     {
-        $row = reset($this->mesh);
+        $row = $this->mesh[0];
         if(!isset($row[$column])) throw new InvalidColumnException();
 
         for ($i = $this->rows-1 ; $i >= 0; $i--){
@@ -84,7 +85,16 @@ class SimpleBoard implements BoardInterface
         foreach ($this->rules as $rule){
             $object = new $rule;
             $event = $object->check($this);
-            if($event) array_merge($events,$event);
+            if($event) $events[]=$event;
+        }
+
+        foreach ($events as $event) {
+            $class = get_class($event);
+            switch ($class){
+                case WinnerWinnerChickenDinnerEvent::class:
+                    $this->setWinner($event);
+                    break;
+            }
         }
     }
     public function gameOver()
@@ -94,8 +104,13 @@ class SimpleBoard implements BoardInterface
         return  $boardIsFull || $boardHasWinner;
     }
 
+    public function setWinner(WinnerWinnerChickenDinnerEvent $event)
+    {
+        $this->winner = $event->getWinner();
+    }
+
     public function getWinner()
     {
-        return false;
+        return $this->winner;
     }
 }
