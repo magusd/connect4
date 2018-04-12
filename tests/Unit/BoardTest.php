@@ -38,9 +38,9 @@ class BoardTest extends BaseTest
         $board->addPiece($piece,4);
         $mesh = $board->readBoard();
 
-        $this->assertEquals($piece,$mesh[6][4]);
         $this->assertEquals($piece,$mesh[5][4]);
         $this->assertEquals($piece,$mesh[4][4]);
+        $this->assertEquals($piece,$mesh[3][4]);
         
     }
 
@@ -66,6 +66,28 @@ class BoardTest extends BaseTest
 
         $board->addPiece($piece,0);;
 
+    }
+
+//    public function testBoardHasAWinner()
+//    {
+//        $board = new SimpleBoard(4,1);
+////        var_dump($board->readBoard());exit;
+//        $this->assertFalse($board->getWinner());
+//        $piece = new Piece('blue');
+//        $board->addPiece($piece,1);
+//        $board->addPiece($piece,1);
+//        $board->addPiece($piece,1);
+//        $board->addPiece($piece,1);
+//        $this->assertNotFalse($board->getWinner());
+//    }
+
+    public function testBoardIsNotPlayable()
+    {
+        $board = new SimpleBoard(1,1);
+        $this->assertFalse($board->gameOver());
+        $piece = new Piece('blue');
+        $board->addPiece($piece,1);
+        $this->assertTrue($board->gameOver());
     }
 
     public function printBoard($mesh)

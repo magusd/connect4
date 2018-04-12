@@ -19,4 +19,7 @@ interface BoardInterface
     public function getStartIndex();
     public function getEndIndex();
     public function getColumns();
+    public function getRows();
+    public function gameOver();
+    public function getWinner();
 }
