@@ -16,5 +16,5 @@ interface PlayerInterface
 {
     public function setPiece(Piece $piece);
     public function getPiece();
-    public function play(BoardInterface $board);
+    public function play(BoardInterface $board,$move = null);
 }

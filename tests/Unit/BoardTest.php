@@ -129,4 +129,23 @@ class BoardTest extends BaseTest
         $this->assertNotFalse($board->getWinner());
 
     }
+
+    public function testBoardHasNotAWinner()
+    {
+        $board = new SimpleBoard(4,4);
+        $this->assertFalse($board->getWinner());
+        $piece = new Piece('blue');
+        $piece2 = new Piece('red');
+        $board->addPiece($piece2,1);
+        $board->addPiece($piece,1);
+
+        $board->addPiece($piece,2);
+        $board->addPiece($piece,2);
+
+        $board->addPiece($piece,3);
+
+
+        $this->assertFalse($board->getWinner());
+
+    }
 }

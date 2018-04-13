@@ -10,11 +10,14 @@ namespace Connect4\Player;
 
 
 use Connect4\Board\BoardInterface;
+use Connect4\Board\Exceptions\BoardColumnIsFullException;
+use Connect4\Board\Exceptions\InvalidColumnException;
 
 class HumanPlayer extends BasePlayer implements PlayerInterface
 {
-    public function play(BoardInterface $board)
+    public function play(BoardInterface $board,$move = null)
     {
-
+        $board->addPiece($this->getPiece(),$move);
+        return true;
     }
 }

@@ -15,7 +15,7 @@ use Connect4\Player\Exceptions\PieceNotSetException;
 
 class RandomBotPlayer extends BasePlayer implements PlayerInterface
 {
-    public function play(BoardInterface $board)
+    public function play(BoardInterface $board,$move = null)
     {
         $range_start = $board->getStartIndex();
         $range_end = $board->getEndIndex();
